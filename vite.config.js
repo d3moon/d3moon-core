@@ -6,7 +6,7 @@ import reactPlugin from 'vite-plugin-react'
  */
 const config = {
   jsx: 'react',
-  plugins: [reactPlugin]
+  plugins: [reactPlugin],
 }
 
 export default config

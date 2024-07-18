@@ -12,46 +12,60 @@
   top: 50%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);  
+  transform: translate(-50%, -50%);
   flex-direction: column;
 }
 
-
-img{
+img {
   width: 111px;
   height: 116px;
 }
 
-h3{
-  font-family: 'Public Sans', sans-serif;
+h3 {
   margin-bottom: 15px;
-  display: block;
-  font-size: 25px;
-  color: #E1E1E6;
+  font-size: 22px;
+  color: #e1e1e6;
   font-weight: bold;
 }
 
-input {
+h3 > span {
+  font-family: 'MAD hacker', sans-serif;
+}
+
+.container-input {
   margin-top: 30px;
-  display: block;
-  margin-bottom: 230px;
+  display: flex;
+  align-items: center;
+}
+
+input {
   width: 346px;
-  height: 28px;
+  height: 24px;
   padding: 5px;
   border: 1px solid #262626;
-  background-color: #0E0E0E;
+  background-color: #0e0e0e;
   color: white !important;
   text-align: center;
 }
 
-input::placeholder{
+input::placeholder {
   font-family: 'Public Sans', sans-serif;
   text-align: center;
-  color: #7C7C8A;
+  color: #7c7c8a;
   font-size: 14px;
   font-weight: bold;
 }
 
-input:focus{
-  color:#262626;
+input:focus {
+  color: #262626;
+}
+
+input:active {
+  border: none;
+}
+
+img.login {
+  width: 30px;
+  height: 26px;
+  margin-top: 3px;
 }
