@@ -2,7 +2,7 @@
 import React from 'react'
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom'
 import SignIn from './pages/SignIn/SignIn'
-import Home from './pages/Home/Home' // Supondo que você tenha um componente Home
+import Home from './pages/Home/Home'
 
 function App() {
   return (

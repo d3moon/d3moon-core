@@ -1,0 +1,57 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+aside {
+  position: relative;
+  justify-items: center;
+  width: 100px;
+  max-width: 100%;
+  padding: 20px;
+  border-right: 1px solid #181818;
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+section.principal {
+  flex: 1;
+  max-width: 100%;
+  padding: 20px;
+  margin: 20px;
+}
+
+.menu-wrapper {
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  margin-top: 180px;
+}
+
+img.logo {
+  width: 60px;
+  height: 60px;
+}
+
+.menu-wrapper img {
+  width: 25px;
+  height: 25px;
+  margin-left: 15px;
+  margin-bottom: 25px;
+}
+
+.power,
+.profile {
+  position: relative;
+  top: 210px;
+}
+
+img.profile {
+  margin-left: 15px;
+  margin-top: -10px;
+}
+
+h1 {
+  font-size: 30px;
+}

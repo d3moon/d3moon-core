@@ -16,7 +16,7 @@ const SignIn = () => {
   }
 
   return (
-    <div className="container">
+    <div className="container-signin">
       {redirect ? (
         <LazyLoading path="home" />
       ) : (
