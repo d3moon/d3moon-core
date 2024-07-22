@@ -35,7 +35,7 @@ h6 {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
@@ -48,19 +48,16 @@ code {
   -moz-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
 }
-
 @-moz-keyframes spin {
   100% {
     -moz-transform: rotate(360deg);
   }
 }
-
 @-webkit-keyframes spin {
   100% {
     -webkit-transform: rotate(360deg);
   }
 }
-
 @keyframes spin {
   100% {
     -webkit-transform: rotate(360deg);
