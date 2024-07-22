@@ -1,0 +1,78 @@
+.cards {
+  display: flex;
+  justify-content: space-between;
+  z-index: 2;
+  width: 100%;
+  height: auto;
+  margin: 100px 0;
+  padding: 0 20px;
+}
+
+.cards-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 300px;
+  height: 390px;
+  border-radius: 5px;
+  border: 2px dotted rgb(255, 166, 166);
+  background-color: #0d0303;
+  margin: 0 100px;
+  padding: 20px;
+}
+
+.line {
+  width: 0;
+  height: 1px;
+  margin-top: 200px;
+  background-color: rgb(255, 166, 166);
+  animation: expandWidth 2s forwards;
+}
+
+@keyframes expandWidth {
+  from {
+    width: 0;
+  }
+  to {
+    width: 200px;
+  }
+}
+
+.cards-wrapper,
+h3 {
+  background-color: #0d0303;
+}
+
+.cards-wrapper h3 {
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+.cards .progress {
+  width: 100px;
+  height: 1px;
+  top: 300px;
+  background-color: white;
+  position: relative;
+}
+
+.progress::before {
+  content: '';
+  width: 50px;
+  top: px;
+  left: 0;
+  height: 1px;
+  background-color: rgb(255, 166, 166);
+  position: absolute;
+}
+
+.cards button {
+  width: 80px;
+  height: 35px;
+  border-radius: 5px;
+  position: relative;
+  top: 280px;
+  left: 200px;
+  background-color: white;
+  cursor: pointer;
+}
