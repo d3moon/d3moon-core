@@ -2,6 +2,13 @@
   background-color: black;
 }
 
+@font-face {
+    font-family: 'Mad Hacker';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Mad Hacker'), url('../../assets/Mad Hacker.woff') format('woff');
+}
+
 .container-signin {
   display: flex;
   justify-content: center;
