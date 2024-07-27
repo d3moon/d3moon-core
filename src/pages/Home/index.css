@@ -14,7 +14,7 @@ aside {
 .principal {
   flex: 1;
   padding: 20px;
-  margin-left: 20px; /* Ajuste a margem esquerda para alinhar corretamente com o sidebar */
+  margin-left: 20px;
 }
 
 .menu-wrapper {
@@ -28,22 +28,31 @@ img.logo {
   height: 60px;
 }
 
-.menu-wrapper img {
+.menu-wrapper .icon, .power {
   width: 25px;
   height: 25px;
   margin-left: 15px;
   margin-bottom: 25px;
+  fill: white;
 }
+
+.menu-wrapper .icon:hover, .power:hover{
+  fill: rgb(255, 148, 148);
+}
+
 
 .power,
 .profile {
   position: relative;
-  top: 210px;
+  top: 230px;
 }
 
 img.profile {
-  margin-left: 15px;
-  margin-top: -10px;
+  margin-left: 14px;
+  margin-top: -30px;
+  width: 26px;
+  height: 26px;
+  padding-bottom: 30px;
 }
 
 h1 {
