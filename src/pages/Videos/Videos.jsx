@@ -1,25 +1,108 @@
-import React, { useState } from 'react';
-import Sidebar from '../../components/Sidebar';
-import LazyLoading from '../../components/LazyLoading';
-import { FaArrowRight } from 'react-icons/fa';
-import { IoEyeSharp } from 'react-icons/io5';
-import { MdOutlineDescription } from 'react-icons/md';
-
-import './index.css';
+import React, { useEffect, useState } from 'react'
+import Sidebar from '../../components/Sidebar'
+import LazyLoading from '../../components/LazyLoading'
+import { MdOutlineDescription } from 'react-icons/md'
+import './index.css'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../contexts/Auth'
+import { toast } from 'react-toastify'
+import axios from 'axios'
 
 const Videos = () => {
-  const [path, setPath] = useState('');
-  const [showDescription, setShowDescription] = useState(false);
+  const [path, setPath] = useState('')
+  const [video, setVideo] = useState(null)
+  const [playlist, setPlaylist] = useState([])
+  const [showDescription, setShowDescription] = useState(false)
+
+  const { authData, setAuthData } = useAuth()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const fetchAuthData = async () => {
+      const savedAuthData = localStorage.getItem('authData')
+      console.log(savedAuthData)
+      if (savedAuthData) {
+        setAuthData(JSON.parse(savedAuthData))
+      } else if (!authData) {
+        toast.error('Você precisa estar autenticado para acessar esta página.')
+        navigate('/')
+      }
+    }
+
+    fetchAuthData()
+  }, [navigate, setAuthData])
+
+  useEffect(() => {
+    if (authData) {
+      localStorage.setItem('authData', JSON.stringify(authData))
+    }
+  }, [authData])
+
+  useEffect(() => {
+    const fetchVideo = async () => {
+      const videoId = authData?.content?.[0]?.videos?.[0]?.videoId
+      if (videoId) {
+        try {
+          const responseVideo = await axios.get(
+            `http:
+          )
+          setVideo(responseVideo?.data)
+        } catch (error) {
+          console.error('Erro ao buscar vídeo:', error)
+          toast.error('Erro ao buscar vídeo.')
+        }
+      }
+    }
+
+    const fetchPlaylist = async () => {
+      const playlistId = authData?.content?.[0]?.idPlaylist
+      if (playlistId) {
+        try {
+          const responsePlaylist = await axios.get(
+            `http:
+          )
+          console.log('Dados da playlist:', responsePlaylist?.data) 
+          setPlaylist(responsePlaylist?.data)
+        } catch (error) {
+          console.error('Erro ao buscar playlist:', error)
+          toast.error('Erro ao buscar playlist.')
+        }
+      }
+    }
+
+    if (authData) {
+      fetchVideo()
+      fetchPlaylist()
+    }
+  }, [authData])
 
   const toggleDescription = () => {
-    setShowDescription(!showDescription);
-  };
+    setShowDescription(!showDescription)
+  }
 
   const handleCloseModal = (e) => {
     if (e.target.classList.contains('modal-overlay')) {
-      setShowDescription(false);
+      setShowDescription(false)
     }
-  };
+  }
+
+  const publishedAt = video?.snippet?.publishedAt
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString)
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      timeZoneName: 'short',
+    }
+    return date.toLocaleDateString('pt-BR', options)
+  }
+
+  console.log(playlist)
 
   return (
     <div className="container">
@@ -27,50 +110,49 @@ const Videos = () => {
       <main className="principal">
         {path && <LazyLoading path={path} />}
         <div className="title">
-          <h1>Instalando editor de código Visual Studio Code</h1>
+          <h1>
+            {authData?.content?.[0]?.videos?.[0]?.title || 'Título do Vídeo'}
+          </h1>
           <div className="map-container">
-            <span>M.E.R.N</span>
-            <FaArrowRight className="arrow" fill="white" />
-            <span>Introdução e conceitos</span>
-            <FaArrowRight className="arrow" fill="white" />
-            <span>Instalando editor de código Visual Studio Code</span>
-           <div className="description-section">
-              <MdOutlineDescription 
-                className="description-icon" 
-                onClick={toggleDescription} 
-                />
+            <div className="date-container">
+              <span>Publicado em: {formatDate(publishedAt)}</span>
+            </div>
+            <div className="description-section">
+              <MdOutlineDescription
+                className="description-icon"
+                onClick={toggleDescription}
+              />
             </div>
           </div>
         </div>
 
         <div className="container-video">
           <div className="main-video">
-            <video src="" className="video"></video>
+            {video ? (
+              <iframe
+                className="video"
+                src={`https:
+                title={video.snippet.title}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            ) : (
+              <p>Carregando vídeo...</p>
+            )}
           </div>
           <div className="side-thumbnails">
-            <div className="next-videos">
-              <div className="next">
-                <IoEyeSharp />
-                <div className="container-desc">
-                  <p>Instalando editor de código Visual Studio Code</p>
-                  <span>10 min</span>
-                </div>
+            {playlist?.snippet?.thumbnails?.default ? (
+              <div className="thumbnail">
+                <img
+                  src={playlist.snippet.thumbnails.default.url}
+                  alt={playlist.snippet.title}
+                />
+                <p>{playlist.snippet.title}</p>
               </div>
-              <div className="next">
-                <IoEyeSharp />
-                <div className="container-desc">
-                  <p>Introdução ao Node.js</p>
-                  <span>12 min</span>
-                </div>
-              </div>
-              <div className="next">
-                <IoEyeSharp />
-                <div className="container-desc">
-                  <p>Configurando Express.js</p>
-                  <span>15 min</span>
-                </div>
-              </div>
-            </div>
+            ) : (
+              <p>Carregando thumbnails...</p>
+            )}
           </div>
         </div>
 
@@ -80,17 +162,22 @@ const Videos = () => {
             <div className="modal-content">
               <div className="modal-header">
                 <h2>Descrição do Treinamento</h2>
-                <button className="modal-close" onClick={() => setShowDescription(false)}>X</button>
+                <button
+                  className="modal-close"
+                  onClick={() => setShowDescription(false)}
+                >
+                  X
+                </button>
               </div>
               <div className="modal-body">
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ducimus earum explicabo ipsum ipsa iure consequatur, ea esse. Natus fugit fuga veniam magnam optio ipsa adipisci aspernatur, ab vitae pariatur tempore.</p>
+                <p>{video?.snippet?.description}</p>
               </div>
             </div>
           </div>
         )}
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default Videos;
+export default Videos

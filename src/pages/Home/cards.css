@@ -22,6 +22,8 @@
 }
 
 .line {
+  position: relative;
+  right: 600px;
   width: 0;
   height: 1px;
   margin-top: 200px;

@@ -1,23 +1,29 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import LogoImage from '../../assets/logo.png'
 import LoginImg from '../../assets/login.svg'
 import './index.css'
 import LazyLoading from '../../components/LazyLoading'
+import { useAuth } from '../../contexts/Auth'
 
 const SignIn = () => {
-  const [loading, setLoading] = useState(false)
-  const [redirect, setRedirect] = useState(false)
+  const [accessCode, setAccessCode] = useState('')
   const navigate = useNavigate()
+  const { signIn, loading, error, authData } = useAuth()
 
-  const handleLoginClick = () => {
-    setLoading(true)
-    setRedirect(true)
+  const handleLoginClick = async () => {
+    const success = await signIn(accessCode)
+    if (success) {
+      navigate('/home')
+    } else {
+      toast.error(error)
+    }
   }
 
   return (
     <div className="container-signin">
-      {redirect ? (
+      {authData ? (
         <LazyLoading path="home" />
       ) : (
         <>
@@ -26,12 +32,18 @@ const SignIn = () => {
             Welcome to <span>BinaryPumpkin</span>
           </h3>
           <div className="container-input">
-            <input type="text" placeholder="Type your access code" />
+            <input
+              type="text"
+              placeholder="Type your access code"
+              value={accessCode}
+              onChange={(e) => setAccessCode(e.target.value)}
+            />
             <img
               className="login"
               src={LoginImg}
               alt="Login"
               onClick={handleLoginClick}
+              disabled={loading}
             />
           </div>
         </>

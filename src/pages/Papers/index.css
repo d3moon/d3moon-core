@@ -5,15 +5,13 @@
 
 .principal-paper {
   display: flex;
-     width: 100%;
-    height: auto;
-    margin: 100px 0;
-    padding: 0 20px;
+  width: 100%;
+  height: auto;
+  margin: 100px 0;
+  padding: 0 20px;
 }
 
-
-
-.container-paper{
+.container-paper {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -21,12 +19,12 @@
   margin-top: 90px;
 }
 
-.container-paper h3{
+.container-paper h3 {
   position: relative;
   top: 15px;
 }
 
-.paper-wrapper{
+.paper-wrapper {
   margin-top: 50px;
   height: 250px;
   border-left: 1px dotted rgb(255, 166, 166);
@@ -35,17 +33,17 @@
   flex-direction: column;
 }
 
-.paper-wrapper p{
+.paper-wrapper p {
   margin-left: 20px;
 }
 
-.icon-file{
+.icon-file {
   fill: white;
   margin-left: 10px;
   cursor: pointer;
 }
 
-.single{
+.single {
   margin-top: 2px;
   display: flex;
   align-items: center;

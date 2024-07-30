@@ -28,7 +28,8 @@ img.logo {
   height: 60px;
 }
 
-.menu-wrapper .icon, .power {
+.menu-wrapper .icon,
+.power {
   width: 25px;
   height: 25px;
   margin-left: 15px;
@@ -36,10 +37,10 @@ img.logo {
   fill: white;
 }
 
-.menu-wrapper .icon:hover, .power:hover{
+.menu-wrapper .icon:hover,
+.power:hover {
   fill: rgb(255, 148, 148);
 }
-
 
 .power,
 .profile {
