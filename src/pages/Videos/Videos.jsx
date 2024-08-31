@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../../components/Sidebar'
 import LazyLoading from '../../components/LazyLoading'
+import CustomVideoPlayer from '../../components/Youtube'
 import { MdOutlineDescription } from 'react-icons/md'
 import './index.css'
 import { useNavigate } from 'react-router-dom'
@@ -16,6 +17,19 @@ const Videos = () => {
 
   const { authData, setAuthData } = useAuth()
   const navigate = useNavigate()
+
+  const opts = {
+    height: '600', // Altura do vídeo
+    width: '1000', // Largura do vídeo
+    playerVars: {
+      autoplay: 1, // Inicia o vídeo automaticamente
+      controls: 1, // Mostra os controles do player (0 = ocultar, 1 = mostrar)
+      modestbranding: 1, // Oculta o logotipo do YouTube no player
+      rel: 0, // Não mostra vídeos relacionados ao final
+      showinfo: 0, // Oculta informações do vídeo como o título (em players mais antigos)
+      mute: 1, // Inicia o vídeo no mudo
+    },
+  }
 
   useEffect(() => {
     const fetchAuthData = async () => {
@@ -44,7 +58,7 @@ const Videos = () => {
       if (videoId) {
         try {
           const responseVideo = await axios.get(
-            `http:
+            `http://localhost:3000/contents/video/${videoId}`
           )
           setVideo(responseVideo?.data)
         } catch (error) {
@@ -59,9 +73,9 @@ const Videos = () => {
       if (playlistId) {
         try {
           const responsePlaylist = await axios.get(
-            `http:
+            `http://localhost:3000/contents/${playlistId}`
           )
-          console.log('Dados da playlist:', responsePlaylist?.data) 
+          console.log('Dados da playlist:', responsePlaylist?.data)
           setPlaylist(responsePlaylist?.data)
         } catch (error) {
           console.error('Erro ao buscar playlist:', error)
@@ -102,8 +116,6 @@ const Videos = () => {
     return date.toLocaleDateString('pt-BR', options)
   }
 
-  console.log(playlist)
-
   return (
     <div className="container">
       <Sidebar setPath={setPath} />
@@ -128,19 +140,15 @@ const Videos = () => {
 
         <div className="container-video">
           <div className="main-video">
-            {video ? (
-              <iframe
-                className="video"
-                src={`https:
-                title={video.snippet.title}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            ) : (
-              <p>Carregando vídeo...</p>
-            )}
-          </div>
+                {video ? (
+                  <CustomVideoPlayer
+                    videoId={video?.id}
+                    opts={opts}
+                  />
+                ) : (
+                  <p>Carregando vídeo...</p>
+                )}
+           </div>
           <div className="side-thumbnails">
             {playlist?.snippet?.thumbnails?.default ? (
               <div className="thumbnail">
