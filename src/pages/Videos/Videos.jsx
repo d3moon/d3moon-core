@@ -8,6 +8,30 @@ import { useAuth } from '../../contexts/Auth'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 
+// Novo componente SideThumbnails
+const SideThumbnails = ({ playlist }) => {
+  const navigate = useNavigate()
+
+  const handleVideoClick = (videoId) => {
+    // Mudar a URL para o novo vídeo
+    navigate(`/videos/${videoId}`)
+  }
+
+  return (
+    <div className="side-thumbnails">
+      {playlist?.items?.map((item) => (
+        <div key={item.id} className="thumbnail" onClick={() => handleVideoClick(item.id)}>
+          <img
+            src={item.snippet.thumbnails.default.url}
+            alt={item.snippet.title}
+          />
+          <p>{item.snippet.title}</p>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 const Videos = () => {
   const [path, setPath] = useState('')
   const [video, setVideo] = useState(null)
@@ -20,7 +44,6 @@ const Videos = () => {
   useEffect(() => {
     const fetchAuthData = async () => {
       const savedAuthData = localStorage.getItem('authData')
-      console.log(savedAuthData)
       if (savedAuthData) {
         setAuthData(JSON.parse(savedAuthData))
       } else if (!authData) {
@@ -28,53 +51,37 @@ const Videos = () => {
         navigate('/')
       }
     }
-
+  
     fetchAuthData()
   }, [navigate, setAuthData])
+  
 
   useEffect(() => {
     if (authData) {
       localStorage.setItem('authData', JSON.stringify(authData))
-    }
-  }, [authData])
 
-  useEffect(() => {
-    const fetchVideo = async () => {
-      const videoId = authData?.content?.[0]?.videos?.[0]?.videoId
-      if (videoId) {
+      const fetchVideoAndPlaylist = async () => {
+        const videoId = authData?.content?.[0]?.videos?.[0]?.videoId
+        const playlistId = authData?.content?.[0]?.idPlaylist
+
         try {
-          const responseVideo = await axios.get(
-            `http:
-          )
-          setVideo(responseVideo?.data)
+          if (videoId) {
+            const responseVideo = await axios.get(`http://localhost:3000/contents/video/${videoId}`)
+            setVideo(responseVideo?.data)
+          }
+          if (playlistId) {
+            const responsePlaylist = await axios.get(`http://localhost:3000/contents/${playlistId}`)
+            setPlaylist(responsePlaylist?.data)
+          }
         } catch (error) {
-          console.error('Erro ao buscar vídeo:', error)
-          toast.error('Erro ao buscar vídeo.')
+          console.error('Erro ao buscar dados:', error)
+          toast.error('Erro ao buscar dados.')
         }
       }
-    }
 
-    const fetchPlaylist = async () => {
-      const playlistId = authData?.content?.[0]?.idPlaylist
-      if (playlistId) {
-        try {
-          const responsePlaylist = await axios.get(
-            `http:
-          )
-          console.log('Dados da playlist:', responsePlaylist?.data) 
-          setPlaylist(responsePlaylist?.data)
-        } catch (error) {
-          console.error('Erro ao buscar playlist:', error)
-          toast.error('Erro ao buscar playlist.')
-        }
-      }
+      fetchVideoAndPlaylist()
     }
-
-    if (authData) {
-      fetchVideo()
-      fetchPlaylist()
-    }
-  }, [authData])
+  }, [])
 
   const toggleDescription = () => {
     setShowDescription(!showDescription)
@@ -102,8 +109,6 @@ const Videos = () => {
     return date.toLocaleDateString('pt-BR', options)
   }
 
-  console.log(playlist)
-
   return (
     <div className="container">
       <Sidebar setPath={setPath} />
@@ -115,7 +120,9 @@ const Videos = () => {
           </h1>
           <div className="map-container">
             <div className="date-container">
-              <span>Publicado em: {formatDate(publishedAt)}</span>
+              <span>
+                Publicado em: {publishedAt ? formatDate(publishedAt) : 'N/A'}
+              </span>
             </div>
             <div className="description-section">
               <MdOutlineDescription
@@ -131,7 +138,7 @@ const Videos = () => {
             {video ? (
               <iframe
                 className="video"
-                src={`https:
+                src={`https://www.youtube.com/embed/${video.id}`}
                 title={video.snippet.title}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -141,19 +148,9 @@ const Videos = () => {
               <p>Carregando vídeo...</p>
             )}
           </div>
-          <div className="side-thumbnails">
-            {playlist?.snippet?.thumbnails?.default ? (
-              <div className="thumbnail">
-                <img
-                  src={playlist.snippet.thumbnails.default.url}
-                  alt={playlist.snippet.title}
-                />
-                <p>{playlist.snippet.title}</p>
-              </div>
-            ) : (
-              <p>Carregando thumbnails...</p>
-            )}
-          </div>
+
+          {/* Componente que exibe os próximos vídeos */}
+          <SideThumbnails playlist={playlist} />
         </div>
 
         {/* Modal */}
@@ -170,7 +167,9 @@ const Videos = () => {
                 </button>
               </div>
               <div className="modal-body">
-                <p>{video?.snippet?.description}</p>
+                <p>
+                  {video?.snippet?.description || 'Sem descrição disponível.'}
+                </p>
               </div>
             </div>
           </div>
