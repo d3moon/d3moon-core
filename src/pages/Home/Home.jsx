@@ -8,31 +8,117 @@ import LazyLoading from '../../components/LazyLoading'
 import Sidebar from '../../components/Sidebar'
 import { useAuth } from '../../contexts/Auth'
 
-const Cards = () => {
+const Cards = ({ searchQuery }) => {
   const { authData } = useAuth()
   const navigate = useNavigate()
 
-  const handleButtonClick = () => {
-    navigate('/videos')
+  const [showModal, setShowModal] = useState(false)
+  const [videoUrl, setVideoUrl] = useState('')
+
+  const handleButtonClick = (playlistId) => {
+    console.log(playlistId)
+    navigate(`/videos/${playlistId}`) // Passa o playlistId na URL
   }
 
-  return (
-    <div className="cards">
-      {authData?.content.map((item, index) => (
-        <div className="cards-wrapper" key={index}>
-          <h3>{item.name}</h3>
-          <div className="progress"></div>
-          <button onClick={handleButtonClick}>Acessar</button>
+  const handleVideoClick = (videoId) => {
+    const videoUrl = `https://www.youtube.com/embed/${videoId}`
+    setVideoUrl(videoUrl)
+    setShowModal(true)
+  }
+
+  console.log(authData)
+
+  // Se searchQuery estiver vazio, retorna todos os conteúdos e vídeos
+  const filteredContent = Array.isArray(authData?.content)
+  ? searchQuery
+    ? authData.content.filter(
+        (item) =>
+          (item.name?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+          (item.description?.toLowerCase() || '').includes(searchQuery.toLowerCase())
+      )
+    : authData.content // Retorna todos os itens se não houver filtro
+  : []
+
+const filteredVideos = Array.isArray(authData?.content)
+  ? searchQuery
+    ? authData.content.flatMap(
+        (item) =>
+          item.videos?.filter(
+            (video) =>
+              video.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              video.videoId?.toLowerCase().includes(searchQuery.toLowerCase())
+          ) || []
+      )
+    : [] // Não retorna vídeos se searchQuery estiver vazio
+  : []
+
+return (
+  <div className="cards">
+    {filteredContent.length === 0 && filteredVideos.length === 0 ? (
+      <p style={{ fontSize: '20px', color: '#666' }}>Nenhum conteúdo encontrado.</p>
+    ) : (
+      <>
+        {filteredContent.map((item, index) => (
+          <div className="cards-wrapper" key={index}>
+            <div className="card-content">
+              <div className="card-left">
+                <h2>{item.name}</h2>
+                <div className="progress"></div>
+                <button onClick={() => handleButtonClick(item.idPlaylist)}>
+                  Acessar
+                </button>
+              </div>
+              <div className="card-right">
+                <p className="course-description">{item.description}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+        {/* Exibir vídeos somente se houver filtro */}
+        {searchQuery && filteredVideos.map((video, index) => (
+          <div className="cards-wrapper" key={`video-${index}`}>
+            <div className="card-content">
+              <div className="card-left">
+                <h2>{video.title}</h2>
+                <button onClick={() => handleVideoClick(video.videoId)}>
+                  Acessar Vídeo
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </>
+    )}
+
+    {/* Modal de vídeo */}
+    {showModal && (
+      <div className="modal-overlay">
+        <div className="modal-content">
+          <button className="close-btn" onClick={() => setShowModal(false)}>
+            X
+          </button>
+          <iframe
+            width="560"
+            height="315"
+            src={videoUrl}
+            title="Vídeo"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
         </div>
-      ))}
-      <div className="line"></div>
-    </div>
+      </div>
+    )}
+  </div>
+
   )
 }
+
 
 const Home = () => {
   const { authData, setAuthData } = useAuth()
   const [path, setPath] = useState('')
+  const [searchQuery, setSearchQuery] = useState('') // Estado para o termo de busca
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -58,7 +144,15 @@ const Home = () => {
         <Sidebar setPath={setPath} />
         <section className="principal">
           <h1>Seus treinamentos</h1>
-          <Cards />
+          <input
+            type="text"
+            placeholder="Pesquisar treinamentos..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className='filter-field'
+          />
+
+          <Cards searchQuery={searchQuery} />
         </section>
       </div>
     </>

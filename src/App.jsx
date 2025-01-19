@@ -16,7 +16,7 @@ function App() {
           <Routes>
             <Route path="/" element={<SignIn />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/videos" element={<Videos />} />
+            <Route path="/videos/:idPlaylist" element={<Videos />} />
             <Route path="/papers" element={<Papers />} />
           </Routes>
         </AuthProvider>

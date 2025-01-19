@@ -14,7 +14,9 @@ aside {
 .principal {
   flex: 1;
   padding: 20px;
-  margin-left: 20px;
+  overflow-y: auto; /* Permite rolagem vertical */
+  overflow-x: hidden;
+  padding-right: 10px; /* Espaçamento para evitar que o conteúdo se sobreponha à barra de rolagem */
 }
 
 .menu-wrapper {
@@ -58,4 +60,24 @@ img.profile {
 
 h1 {
   font-size: 30px;
+}
+
+.filter-field {
+  font-size: '16px';
+  border: 1px solid;
+  border-color: #393939;
+  width: 100%;
+  max-width: 400px;
+  padding: 12px;
+  outline: none;
+  border-radius: 40px;
+}
+
+.filter-field:focus {
+  outline: none;
+}
+
+h1,
+.filter-field {
+  margin-left: 60px;
 }
