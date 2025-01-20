@@ -4,8 +4,7 @@
   z-index: 2;
   width: 100%;
   height: auto;
-  margin: 100px 0;
-  padding: 0 20px;
+  margin: 50px -60px;
   flex-wrap: wrap;
   justify-content: center; /* Para centralizar os cards quando há um único */
 }
@@ -20,7 +19,7 @@
   border-radius: 5px;
   border: 2px dotted rgb(255, 166, 166);
   background-color: #0d0303;
-  margin: 10px;
+  margin: 20px;
   padding: 20px;
   position: relative;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -140,6 +139,29 @@
   height: 100%;
   border: none;
   border-radius: 8px;
+}
+
+.icon-wrapper {
+  position: absolute;
+  top: -20px;
+  right: -15px;
+  width: 40px;
+  height: 40px;
+  background-color: rgb(255, 166, 166); /* Cor de fundo da bolinha */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-wrapper i {
+  font-size: 20px;
+  color: white; /* Cor do ícone */
+}
+
+.-icon{
+  fill: white;
+  font-size: 18px;
 }
 
 /* Responsividade */

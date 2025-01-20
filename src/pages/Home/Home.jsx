@@ -7,6 +7,8 @@ import '../Home/cards.css'
 import LazyLoading from '../../components/LazyLoading'
 import Sidebar from '../../components/Sidebar'
 import { useAuth } from '../../contexts/Auth'
+import { AiFillThunderbolt } from "react-icons/ai";
+
 
 const Cards = ({ searchQuery }) => {
   const { authData } = useAuth()
@@ -26,7 +28,6 @@ const Cards = ({ searchQuery }) => {
     setShowModal(true)
   }
 
-  console.log(authData)
 
   // Se searchQuery estiver vazio, retorna todos os conteúdos e vídeos
   const filteredContent = Array.isArray(authData?.content)
@@ -59,20 +60,24 @@ return (
     ) : (
       <>
         {filteredContent.map((item, index) => (
-          <div className="cards-wrapper" key={index}>
-            <div className="card-content">
-              <div className="card-left">
-                <h2>{item.name}</h2>
-                <div className="progress"></div>
-                <button onClick={() => handleButtonClick(item.idPlaylist)}>
-                  Acessar
-                </button>
-              </div>
-              <div className="card-right">
-                <p className="course-description">{item.description}</p>
-              </div>
-            </div>
-          </div>
+         <div className="cards-wrapper" key={index}>
+         <div className="icon-wrapper">
+            <AiFillThunderbolt className='-icon' />
+         </div>
+         <div className="card-content">
+           <div className="card-left">
+             <h2>{item.name}</h2>
+             <div className="progress"></div>
+             <button onClick={() => handleButtonClick(item.idPlaylist)}>
+               Acessar
+             </button>
+           </div>
+           <div className="card-right">
+             <p className="course-description">{item.description}</p>
+           </div>
+         </div>
+       </div>
+       
         ))}
         {/* Exibir vídeos somente se houver filtro */}
         {searchQuery && filteredVideos.map((video, index) => (

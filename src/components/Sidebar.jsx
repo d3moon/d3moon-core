@@ -6,6 +6,8 @@ import Profile from '../assets/profile.svg'
 import { HiMiniHome } from 'react-icons/hi2'
 import { IoVideocam } from 'react-icons/io5'
 import { FaBookBookmark, FaPowerOff } from 'react-icons/fa6'
+import { FaRegStickyNote } from "react-icons/fa";
+
 
 import { toast } from 'react-toastify'
 
@@ -43,6 +45,9 @@ const Sidebar = ({ setPath }) => {
         </Link>
         <Link to="#" onClick={() => handleClick('/papers')}>
           <FaBookBookmark className="icon" />
+        </Link>
+        <Link to="#" onClick={() => handleClick('/notes')}>
+          <FaRegStickyNote className="icon" />
         </Link>
         <img className="profile" src={Profile} alt="Perfil" />
         <Link

@@ -46,12 +46,12 @@ img.logo {
 
 .power,
 .profile {
-  position: relative;
-  top: 230px;
+  position: fixed;
+  top: 40rem;
+  margin: 20px 15px;
 }
 
 img.profile {
-  margin-left: 14px;
   margin-top: -30px;
   width: 26px;
   height: 26px;
@@ -81,3 +81,9 @@ h1,
 .filter-field {
   margin-left: 60px;
 }
+
+.cards-wrapper {
+  position: relative;
+  /* Outras propriedades de estilo para o card */
+}
+

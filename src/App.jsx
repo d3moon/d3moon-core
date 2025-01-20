@@ -7,6 +7,7 @@ import Papers from './pages/Papers/Papers'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { AuthProvider } from './contexts/Auth'
+import Notes from './pages/notes/Notes'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/videos/:idPlaylist" element={<Videos />} />
             <Route path="/papers" element={<Papers />} />
+            <Route path="/notes" element={<Notes />} />
           </Routes>
         </AuthProvider>
         <ToastContainer />
