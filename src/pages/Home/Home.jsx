@@ -10,7 +10,7 @@ import { useAuth } from '../../contexts/Auth'
 import { AiFillThunderbolt } from "react-icons/ai";
 
 
-const Cards = ({ searchQuery }) => {
+export const Cards = ({ searchQuery }) => {
   const { authData } = useAuth()
   const navigate = useNavigate()
 

@@ -44,32 +44,6 @@ h3 > span {
   align-items: center;
 }
 
-input {
-  width: 346px;
-  height: 24px;
-  padding: 5px;
-  border: 1px solid #262626;
-  background-color: #0e0e0e;
-  color: white !important;
-  text-align: center;
-}
-
-input::placeholder {
-  font-family: 'Public Sans', sans-serif;
-  text-align: center;
-  color: #7c7c8a;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-input:focus {
-  color: #262626;
-}
-
-input:active {
-  border: none;
-}
-
 img.login {
   width: 30px;
   height: 26px;

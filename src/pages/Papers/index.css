@@ -5,23 +5,14 @@
 
 .principal-paper {
   display: flex;
+  flex-direction: column;
   width: 100%;
-  height: auto;
-  margin: 100px 0;
-  padding: 0 20px;
+  margin-top: 8rem;
+
 }
 
 .container-paper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-right: 180px;
-  margin-top: 90px;
-}
-
-.container-paper h3 {
-  position: relative;
-  top: 15px;
+  margin-left: 4rem
 }
 
 .paper-wrapper {

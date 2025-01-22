@@ -6,13 +6,14 @@ import Profile from '../assets/profile.svg'
 import { HiMiniHome } from 'react-icons/hi2'
 import { IoVideocam } from 'react-icons/io5'
 import { FaBookBookmark, FaPowerOff } from 'react-icons/fa6'
-import { FaRegStickyNote } from "react-icons/fa";
-
+import { FaRegStickyNote } from 'react-icons/fa'
 
 import { toast } from 'react-toastify'
+import { useAuth } from '../contexts/Auth'
 
 const Sidebar = ({ setPath }) => {
   const navigate = useNavigate()
+  const { authData } = useAuth()
 
   const notify = () => {
     toast.warn('Shutdown!', {
@@ -40,7 +41,7 @@ const Sidebar = ({ setPath }) => {
         <Link to="#" onClick={() => handleClick('/home')}>
           <HiMiniHome className="icon" />
         </Link>
-        <Link to="#" onClick={() => handleClick('/videos')}>
+        <Link to="#" onClick={() => handleClick(`/videos/${authData?.content[0].idPlaylist}`)}>
           <IoVideocam className="icon" />
         </Link>
         <Link to="#" onClick={() => handleClick('/papers')}>

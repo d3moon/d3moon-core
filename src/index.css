@@ -30,6 +30,9 @@ h4,
 h5,
 h6,
 span,
+label,
+input,
+select,
 p {
   color: white;
   font-family: Inter;
@@ -38,6 +41,51 @@ p {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+
+label {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+input, select {
+  border: 1px solid #43414D;
+  border-radius: 5px;
+  background-color: #2C2936;
+  border: 1px solid #655a88;
+  color: white;
+}
+
+input::placeholder, select::placeholder {
+  font-family: 'Public Sans', sans-serif;
+  text-align: center;
+  color: #7c7c8a;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+
+input:focus, select:focus {
+  outline: none;
+  border: 2px solid #ef9e9e;
+}
+
+label, input, select{
+ margin: 4px 0;
+}
+
+input, select {
+  width: 346px;
+  height: 24px;
+  padding: 5px;
+  
+}
+
+select {
+  height: calc(24px + 0.9rem);
+  width: calc(346px + 1rem);
 }
 
 .lazy {

@@ -39,6 +39,8 @@ img.logo {
   fill: white;
 }
 
+
+
 .menu-wrapper .icon:hover,
 .power:hover {
   fill: rgb(255, 148, 148);
@@ -68,7 +70,7 @@ h1 {
   border-color: #393939;
   width: 100%;
   max-width: 400px;
-  padding: 12px;
+  padding: 8px;
   outline: none;
   border-radius: 40px;
 }
