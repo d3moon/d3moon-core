@@ -158,7 +158,7 @@ const Videos = () => {
                   src={
                     video?.snippet?.resourceId?.videoId
                       ? `https://www.youtube.com/embed/${video.snippet.resourceId.videoId}`
-                      : `https://www.youtube.com/embed/${video?.id}`  // URL alternativa caso o primeiro vídeoId não seja encontrado
+                      : `https://www.youtube.com/embed/${video?.id}` 
                   }                  title={video?.snippet?.title}
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -169,13 +169,11 @@ const Videos = () => {
               )}
             </div>
 
-            {/* Passa a função para selecionar o vídeo */}
             <SideThumbnails playlist={playlist} onVideoSelect={handleVideoSelect} />
           </div>
         </div>
 
-        {/* Modal */}
-        {showDescription && (
+         {showDescription && (
           <div className="modal-overlay" onClick={handleCloseModal}>
             <div className="modal-content">
               <div className="modal-header">

@@ -19,7 +19,7 @@ export const Cards = ({ searchQuery }) => {
 
   const handleButtonClick = (playlistId) => {
     console.log(playlistId)
-    navigate(`/videos/${playlistId}`) // Passa o playlistId na URL
+    navigate(`/videos/${playlistId}`) 
   }
 
   const handleVideoClick = (videoId) => {
@@ -29,7 +29,6 @@ export const Cards = ({ searchQuery }) => {
   }
 
 
-  // Se searchQuery estiver vazio, retorna todos os conteúdos e vídeos
   const filteredContent = Array.isArray(authData?.content)
   ? searchQuery
     ? authData.content.filter(
@@ -37,7 +36,7 @@ export const Cards = ({ searchQuery }) => {
           (item.name?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
           (item.description?.toLowerCase() || '').includes(searchQuery.toLowerCase())
       )
-    : authData.content // Retorna todos os itens se não houver filtro
+    : authData.content 
   : []
 
 const filteredVideos = Array.isArray(authData?.content)
@@ -50,7 +49,7 @@ const filteredVideos = Array.isArray(authData?.content)
               video.videoId?.toLowerCase().includes(searchQuery.toLowerCase())
           ) || []
       )
-    : [] // Não retorna vídeos se searchQuery estiver vazio
+    : [] 
   : []
 
 return (
@@ -79,7 +78,6 @@ return (
        </div>
        
         ))}
-        {/* Exibir vídeos somente se houver filtro */}
         {searchQuery && filteredVideos.map((video, index) => (
           <div className="cards-wrapper" key={`video-${index}`}>
             <div className="card-content">
@@ -95,10 +93,9 @@ return (
       </>
     )}
 
-    {/* Modal de vídeo */}
     {showModal && (
       <div className="modal-overlay">
-        <div className="modal-content">
+        <div className="modal-content-video">
           <button className="close-btn" onClick={() => setShowModal(false)}>
             X
           </button>
@@ -123,7 +120,7 @@ return (
 const Home = () => {
   const { authData, setAuthData } = useAuth()
   const [path, setPath] = useState('')
-  const [searchQuery, setSearchQuery] = useState('') // Estado para o termo de busca
+  const [searchQuery, setSearchQuery] = useState('') 
   const navigate = useNavigate()
 
   useEffect(() => {

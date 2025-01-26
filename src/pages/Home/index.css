@@ -14,9 +14,9 @@ aside {
 .principal {
   flex: 1;
   padding: 20px;
-  overflow-y: auto; /* Permite rolagem vertical */
+  overflow-y: auto;
   overflow-x: hidden;
-  padding-right: 10px; /* Espaçamento para evitar que o conteúdo se sobreponha à barra de rolagem */
+  padding-right: 10px;
 }
 
 .menu-wrapper {
@@ -86,6 +86,6 @@ h1,
 
 .cards-wrapper {
   position: relative;
-  /* Outras propriedades de estilo para o card */
+ 
 }
 
