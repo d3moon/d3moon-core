@@ -3,7 +3,7 @@ import LazyLoading from '../../components/LazyLoading'
 import Sidebar from '../../components/Sidebar'
 import { FaArrowLeft } from 'react-icons/fa'
 
-import '../Notes/index.css'
+import './index.css'
 import { Link, useNavigate } from 'react-router-dom'
 
 const Notes = () => {
