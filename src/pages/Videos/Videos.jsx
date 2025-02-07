@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import Sidebar from '../../components/Sidebar';
-import LazyLoading from '../../components/LazyLoading';
-import { MdOutlineDescription } from 'react-icons/md';
-import './index.css';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useAuth } from '../../contexts/Auth';
-import { toast } from 'react-toastify';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import Sidebar from '../../components/Sidebar'
+import LazyLoading from '../../components/LazyLoading'
+import { MdOutlineDescription } from 'react-icons/md'
+import './index.css'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useAuth } from '../../contexts/Auth'
+import { toast } from 'react-toastify'
+import axios from 'axios'
 
 // Componente SideThumbnails
 const SideThumbnails = ({ playlist, onVideoSelect }) => {
@@ -26,35 +26,33 @@ const SideThumbnails = ({ playlist, onVideoSelect }) => {
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
 const Videos = () => {
-  const [path, setPath] = useState('');
-  const [video, setVideo] = useState(null);
-  const [playlist, setPlaylist] = useState([]);
-  const [showDescription, setShowDescription] = useState(false);
+  const [path, setPath] = useState('')
+  const [video, setVideo] = useState(null)
+  const [playlist, setPlaylist] = useState([])
+  const [showDescription, setShowDescription] = useState(false)
 
-  const { authData, setAuthData } = useAuth();
-  const navigate = useNavigate();
-  const { idPlaylist } = useParams();
-
+  const { authData, setAuthData } = useAuth()
+  const navigate = useNavigate()
+  const { idPlaylist } = useParams()
 
   // Carrega os dados de autenticação
   useEffect(() => {
     const fetchAuthData = async () => {
-      const savedAuthData = localStorage.getItem('authData');
+      const savedAuthData = localStorage.getItem('authData')
       if (savedAuthData && !authData) {
-        setAuthData(JSON.parse(savedAuthData));
+        setAuthData(JSON.parse(savedAuthData))
       } else if (!savedAuthData && !authData) {
-        toast.error('Você precisa estar autenticado para acessar esta página.');
-        navigate('/');
+        toast.error('Você precisa estar autenticado para acessar esta página.')
+        navigate('/')
       }
-    };
-  
-    fetchAuthData();
-  }, [navigate, setAuthData, authData]); // Verifique se 'authData' é necessário como dependência
-  
+    }
+
+    fetchAuthData()
+  }, [navigate, setAuthData, authData]) // Verifique se 'authData' é necessário como dependência
 
   // Carrega os dados da playlist e do vídeo principal (primeiro vídeo)
   useEffect(() => {
@@ -63,57 +61,56 @@ const Videos = () => {
         try {
           if (idPlaylist) {
             const responsePlaylist = await axios.get(
-              `http://localhost:3000/contents/${idPlaylist}`
-            );
-            const playlistData = responsePlaylist?.data;
+              `https://d3moon-back.vercel.app:3000/contents/${idPlaylist}`
+            )
+            const playlistData = responsePlaylist?.data
 
             // Define a playlist e o primeiro vídeo da playlist
             console.log(playlist)
-            setPlaylist(playlistData);
+            setPlaylist(playlistData)
             if (playlistData && playlistData.length > 0) {
-              setVideo(playlistData[0]); // O primeiro vídeo será carregado automaticamente
+              setVideo(playlistData[0]) // O primeiro vídeo será carregado automaticamente
             }
           }
         } catch (error) {
-          console.error('Erro ao buscar dados da playlist:', error);
-          toast.error('Erro ao buscar dados da playlist.');
+          console.error('Erro ao buscar dados da playlist:', error)
+          toast.error('Erro ao buscar dados da playlist.')
         }
-      };
+      }
 
-      fetchVideoAndPlaylist();
+      fetchVideoAndPlaylist()
     }
-  }, [authData, idPlaylist]);
-  
+  }, [authData, idPlaylist])
 
   // Função para carregar o vídeo ao selecionar um item da playlist
   const handleVideoSelect = async (videoId) => {
     try {
       console.log(videoId)
       const responseVideo = await axios.get(
-        `http://localhost:3000/contents/video/${videoId}`
-      );
-      setVideo(responseVideo?.data);
+        `https://d3moon-back.vercel.app:3000/contents/video/${videoId}`
+      )
+      setVideo(responseVideo?.data)
       console.log(video)
     } catch (error) {
-      console.error('Erro ao carregar vídeo:', error);
-      toast.error('Erro ao carregar o vídeo selecionado.');
+      console.error('Erro ao carregar vídeo:', error)
+      toast.error('Erro ao carregar o vídeo selecionado.')
     }
-  };
+  }
 
   const toggleDescription = () => {
-    setShowDescription(!showDescription);
-  };
+    setShowDescription(!showDescription)
+  }
 
   const handleCloseModal = (e) => {
     if (e.target.classList.contains('modal-overlay')) {
-      setShowDescription(false);
+      setShowDescription(false)
     }
-  };
+  }
 
-  const publishedAt = video?.snippet?.publishedAt;
+  const publishedAt = video?.snippet?.publishedAt
 
   const formatDate = (dateString) => {
-    const date = new Date(dateString);
+    const date = new Date(dateString)
     const options = {
       year: 'numeric',
       month: 'long',
@@ -122,10 +119,9 @@ const Videos = () => {
       minute: '2-digit',
       second: '2-digit',
       timeZoneName: 'short',
-    };
-    return date.toLocaleDateString('pt-BR', options);
-  };
-  
+    }
+    return date.toLocaleDateString('pt-BR', options)
+  }
 
   return (
     <div className="container">
@@ -158,8 +154,9 @@ const Videos = () => {
                   src={
                     video?.snippet?.resourceId?.videoId
                       ? `https://www.youtube.com/embed/${video.snippet.resourceId.videoId}`
-                      : `https://www.youtube.com/embed/${video?.id}` 
-                  }                  title={video?.snippet?.title}
+                      : `https://www.youtube.com/embed/${video?.id}`
+                  }
+                  title={video?.snippet?.title}
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -169,11 +166,14 @@ const Videos = () => {
               )}
             </div>
 
-            <SideThumbnails playlist={playlist} onVideoSelect={handleVideoSelect} />
+            <SideThumbnails
+              playlist={playlist}
+              onVideoSelect={handleVideoSelect}
+            />
           </div>
         </div>
 
-         {showDescription && (
+        {showDescription && (
           <div className="modal-overlay" onClick={handleCloseModal}>
             <div className="modal-content">
               <div className="modal-header">
@@ -195,7 +195,7 @@ const Videos = () => {
         )}
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default Videos;
+export default Videos

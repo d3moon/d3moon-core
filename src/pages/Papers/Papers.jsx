@@ -1,53 +1,58 @@
-import React, { useState, useEffect } from 'react';
-import '../Papers/index.css';
-import LazyLoading from '../../components/LazyLoading';
-import Sidebar from '../../components/Sidebar';
-import { FaFilePdf } from 'react-icons/fa';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react'
+import '../Papers/index.css'
+import LazyLoading from '../../components/LazyLoading'
+import Sidebar from '../../components/Sidebar'
+import { FaFilePdf } from 'react-icons/fa'
+import axios from 'axios'
 
 const Papers = () => {
-  const [papers, setPapers] = useState([]);
-  const [path, setPath] = useState(''); 
+  const [papers, setPapers] = useState([])
+  const [path, setPath] = useState('')
 
   useEffect(() => {
     const fetchPapers = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/papers');
-        console.log(response.data); 
-        setPapers(response.data);
+        const response = await axios.get(
+          'https://d3moon-back.vercel.app:3000/papers'
+        )
+        console.log(response.data)
+        setPapers(response.data)
       } catch (error) {
-        console.error('Erro ao carregar os papers:', error);
+        console.error('Erro ao carregar os papers:', error)
       }
-    };
+    }
 
-    fetchPapers();
-  }, []);
+    fetchPapers()
+  }, [])
 
   const handleDownload = async (name) => {
     try {
-      const response = await axios.get(`http://localhost:3000/papers/download/${name}`, {
-        responseType: 'blob',
-      });
-      
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', name);
-      document.body.appendChild(link);
-      link.click();
-      
-      document.body.removeChild(link);
+      const response = await axios.get(
+        `https://d3moon-back.vercel.app:3000/papers/download/${name}`,
+        {
+          responseType: 'blob',
+        }
+      )
+
+      const url = window.URL.createObjectURL(new Blob([response.data]))
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', name)
+      document.body.appendChild(link)
+      link.click()
+
+      document.body.removeChild(link)
     } catch (error) {
-      console.error('Erro ao iniciar download:', error);
+      console.error('Erro ao iniciar download:', error)
     }
-  };
+  }
 
   const splitIntoColumns = (papers) => {
-    const midIndex = Math.ceil(papers.length / 2);
-    return [papers.slice(0, midIndex), papers.slice(midIndex)];
-  };
+    const midIndex = Math.ceil(papers.length / 2)
+    return [papers.slice(0, midIndex), papers.slice(midIndex)]
+  }
 
-  const [column1, column2] = splitIntoColumns(papers);
+  const [column1, column2] = splitIntoColumns(papers)
 
   return (
     <>
@@ -65,7 +70,7 @@ const Papers = () => {
                       <p>{paper.name.split('.')[0]}</p>
                       <FaFilePdf
                         className="icon-file"
-                        onClick={() => handleDownload(paper.name)}  
+                        onClick={() => handleDownload(paper.name)}
                       />
                     </div>
                   ))}
@@ -76,7 +81,7 @@ const Papers = () => {
                       <p>{paper.name.split('.')[0]}</p>
                       <FaFilePdf
                         className="icon-file"
-                        onClick={() => handleDownload(paper.name)}  
+                        onClick={() => handleDownload(paper.name)}
                       />
                     </div>
                   ))}
@@ -89,7 +94,7 @@ const Papers = () => {
         </section>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Papers;
+export default Papers
