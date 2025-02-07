@@ -61,7 +61,7 @@ const Videos = () => {
         try {
           if (idPlaylist) {
             const responsePlaylist = await axios.get(
-              `https://d3moon-back.vercel.app:3000/contents/${idPlaylist}`
+              `https://d3moon-back.vercel.app/contents/${idPlaylist}`
             )
             const playlistData = responsePlaylist?.data
 
@@ -87,7 +87,7 @@ const Videos = () => {
     try {
       console.log(videoId)
       const responseVideo = await axios.get(
-        `https://d3moon-back.vercel.app:3000/contents/video/${videoId}`
+        `https://d3moon-back.vercel.app/contents/video/${videoId}`
       )
       setVideo(responseVideo?.data)
       console.log(video)

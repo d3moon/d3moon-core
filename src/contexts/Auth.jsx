@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(true)
     try {
       const response = await axios.get(
-        `https://d3moon-back.vercel.app:3000/users/${accessCode}/access_code`
+        `https://d3moon-back.vercel.app/users/${accessCode}/access_code`
       )
       setAuthData(response.data)
       setError(null)

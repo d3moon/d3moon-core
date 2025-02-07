@@ -13,7 +13,7 @@ const Papers = () => {
     const fetchPapers = async () => {
       try {
         const response = await axios.get(
-          'https://d3moon-back.vercel.app:3000/papers'
+          'https://d3moon-back.vercel.app/papers'
         )
         console.log(response.data)
         setPapers(response.data)
@@ -28,7 +28,7 @@ const Papers = () => {
   const handleDownload = async (name) => {
     try {
       const response = await axios.get(
-        `https://d3moon-back.vercel.app:3000/papers/download/${name}`,
+        `https://d3moon-back.vercel.app/papers/download/${name}`,
         {
           responseType: 'blob',
         }
