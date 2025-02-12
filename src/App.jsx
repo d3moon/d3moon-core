@@ -8,6 +8,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { AuthProvider } from './contexts/Auth'
 import Notes from './pages/notes/Notes'
+import NotFound from './pages/NotFound/NotFound'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/videos/:idPlaylist" element={<Videos />} />
             <Route path="/papers" element={<Papers />} />
             <Route path="/notes" element={<Notes />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
         <ToastContainer />

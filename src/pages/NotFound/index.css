@@ -1,0 +1,20 @@
+.container-notfound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.notfound-link {
+  font-size: 1.2rem;
+  color: rgba(255, 0, 102, 1);
+  text-decoration: none;
+  margin-left: 25px;
+}
+
+.notfound-link:hover {
+  color: rgb(210, 5, 87);
+}
+
+.link-notfound {
+  text-decoration: none;
+}
