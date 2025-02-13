@@ -41,7 +41,12 @@ const Sidebar = ({ setPath }) => {
         <Link to="#" onClick={() => handleClick('/home')}>
           <HiMiniHome className="icon" />
         </Link>
-        <Link to="#" onClick={() => handleClick(`/videos/${authData?.content[0].idPlaylist}`)}>
+        <Link
+          to="#"
+          onClick={() =>
+            handleClick(`/videos/${authData?.content[0].idPlaylist}`)
+          }
+        >
           <IoVideocam className="icon" />
         </Link>
         <Link to="#" onClick={() => handleClick('/papers')}>
@@ -50,17 +55,26 @@ const Sidebar = ({ setPath }) => {
         <Link to="#" onClick={() => handleClick('/notes')}>
           <FaRegStickyNote className="icon" />
         </Link>
-        <img className="profile" src={authData?.profile_picker} alt="Perfil" />
-        <Link
-          to="#"
-          onClick={() => {
-            notify()
-            handleRemoveItem()
-            handleClick('/')
-          }}
-        >
-          <FaPowerOff className="power" />
-        </Link>
+        <div className="power-profile">
+          <div className='container-profile'>
+            <img
+              className="profile"
+              src={authData?.profile_picker}
+              alt="Perfil"
+            />
+            <span>{authData?.nickname}</span>
+          </div>
+          <Link
+            to="#"
+            onClick={() => {
+              notify()
+              handleRemoveItem()
+              handleClick('/')
+            }}
+          >
+            <FaPowerOff className="power" />
+          </Link>
+        </div>
       </div>
     </aside>
   )
