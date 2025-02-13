@@ -32,6 +32,8 @@ const Sidebar = ({ setPath }) => {
     navigate('/')
   }
 
+  console.log(authData.profile_picker)
+
   return (
     <aside>
       <Link to="/">
