@@ -32,8 +32,6 @@ const Sidebar = ({ setPath }) => {
     navigate('/')
   }
 
-  console.log(authData)
-
   return (
     <aside>
       <Link to="/">
@@ -52,7 +50,7 @@ const Sidebar = ({ setPath }) => {
         <Link to="#" onClick={() => handleClick('/notes')}>
           <FaRegStickyNote className="icon" />
         </Link>
-        <img className="profile" src={Profile} alt="Perfil" />
+        <img className="profile" src={authData?.profile_picker} alt="Perfil" />
         <Link
           to="#"
           onClick={() => {
