@@ -32,7 +32,7 @@ const Sidebar = ({ setPath }) => {
     navigate('/')
   }
 
-  console.log(authData.profile_picker)
+  console.log(authData)
 
   return (
     <aside>
