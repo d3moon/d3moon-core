@@ -15,7 +15,6 @@ const Papers = () => {
         const response = await axios.get(
           'https://d3moon-back.vercel.app/papers'
         )
-        console.log(response.data)
         setPapers(response.data)
       } catch (error) {
         console.error('Erro ao carregar os papers:', error)

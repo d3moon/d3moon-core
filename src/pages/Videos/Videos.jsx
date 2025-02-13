@@ -66,7 +66,6 @@ const Videos = () => {
             const playlistData = responsePlaylist?.data
 
             // Define a playlist e o primeiro vídeo da playlist
-            console.log(playlist)
             setPlaylist(playlistData)
             if (playlistData && playlistData.length > 0) {
               setVideo(playlistData[0]) // O primeiro vídeo será carregado automaticamente
@@ -85,12 +84,10 @@ const Videos = () => {
   // Função para carregar o vídeo ao selecionar um item da playlist
   const handleVideoSelect = async (videoId) => {
     try {
-      console.log(videoId)
       const responseVideo = await axios.get(
         `https://d3moon-back.vercel.app/contents/video/${videoId}`
       )
       setVideo(responseVideo?.data)
-      console.log(video)
     } catch (error) {
       console.error('Erro ao carregar vídeo:', error)
       toast.error('Erro ao carregar o vídeo selecionado.')

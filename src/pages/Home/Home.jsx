@@ -18,7 +18,6 @@ export const Cards = ({ searchQuery }) => {
   const [videoUrl, setVideoUrl] = useState('')
 
   const handleButtonClick = (playlistId) => {
-    console.log(playlistId)
     navigate(`/videos/${playlistId}`) 
   }
 

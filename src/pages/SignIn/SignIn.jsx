@@ -29,7 +29,7 @@ const SignIn = () => {
         <>
           <img src={LogoImage} alt="Logo" />
           <h3>
-            Welcome to <span>BinaryPumpkin</span>
+            Welcome to <span>D3moon</span>
           </h3>
           <div className="container-input">
             <input
